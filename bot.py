@@ -16,16 +16,13 @@ def start(bot, update):
     update.message.reply_text('Hi! Use /set <seconds> to set a timer')
 
 
+# FUNCTION TO SEND OUT THE MESSAGE FROM THE FILE
 def alarm(bot, job):
-    """Send the alarm message."""
-	#file = open("testfile.txt","w")
- 
-	#file.write("Hello World")
-	#file.close()
-
-
+    #Send the alarm message.
+    file_string = open("data.txt", "r").read()
     bot.send_message(job.context, text='Beep!')
-	#bot.send_message(job.context, str(linestring))
+    bot.send_message(job.context, file_string)
+
 
 
 def set_timer(bot, update, args, job_queue, chat_data):
@@ -39,7 +36,7 @@ def set_timer(bot, update, args, job_queue, chat_data):
             return
 
         # Add job to queue
-        job = job_queue.run_repeating(alarm, 3, 0 , context=chat_id)
+        job = job_queue.run_repeating(alarm, due, 0 , context=chat_id)
         chat_data['job'] = job
 
         update.message.reply_text('Timer successfully set!')
