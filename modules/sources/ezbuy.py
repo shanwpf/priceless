@@ -16,7 +16,7 @@ def create_item_list(cardList):
 		item['url'] = "https://ezbuy.sg/product/" + card['url'] + ".html" 
 		item_list.append(item)
 
-	print(json.dumps(item_list, indent=2, sort_keys=True)) # Pretty prints
+	#print(json.dumps(item_list, indent=2, sort_keys=True)) # Pretty prints
 	return item_list
 
 def get_item_list(search_str):
@@ -29,4 +29,4 @@ def get_item_list(search_str):
 	response = requests.post(SEARCH_API_URL, headers=headers, data=formData)
 	return create_item_list(json.loads(response.text))
 	
-get_item_list("something something")
+#get_item_list("something something")
