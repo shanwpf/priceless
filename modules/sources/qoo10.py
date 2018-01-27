@@ -6,8 +6,9 @@ SEARCH_URL_MID = "?keyword="
 SEARCH_URL_POSTFIX = "&keyword_auto_change="
 
 def generate_url(search_str):
-	return SEARCH_URL_PREFIX + search_str + SEARCH_URL_MID + search_str  + SEARCH_URL_POSTFIX
+	return SEARCH_URL_PREFIX + search_str + SEARCH_URL_MID + search_str + SEARCH_URL_POSTFIX
 
+#remove dollar sign for the price so that it shows in only digit format
 def format_price(price_str):
 	return price_str[1:]
 
