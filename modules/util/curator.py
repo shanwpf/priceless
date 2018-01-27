@@ -19,6 +19,7 @@ def name_contains_filtered_word(item):
 	for phrase in ITEM_NAME_FILTER_LIST:
 		if phrase in item['product_name'].lower():
 			return True
+	return False
 
 # def is_bad_name(item, search_str):
 # 	if name_contains_filtered_word(item):
