@@ -1,6 +1,6 @@
 import json, os
 
-FILE_PATH = './out/results.json'
+FILE_PATH = 'results.json'
 update_available = False
 
 def set_update_status(boolean):
@@ -22,11 +22,19 @@ def overwrite_file(item_list):
 	with open(FILE_PATH, 'w+') as outfile:
 		json.dump(item_list, outfile)
 
+def create_file():
+	open(FILE_PATH, 'w+')
+
 def has_update():
 	return update_available
 
 def update_results_file(item_list):
-	if not file_exists() or (file_exists() and file_differs(item_list)):
+	if not file_exists():
+		create_file()
+		overwrite_file(item_list)
+		update_available = True
+		return True
+	elif file_exists() and file_differs(item_list):
 		overwrite_file(item_list)
 		update_available = True
 		return True
