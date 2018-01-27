@@ -9,5 +9,5 @@ def get_item_lists(search_str):
 	item_lists.append(qoo10.get_item_list(search_str))
 	item_lists.append(gymshack.get_item_list(search_str))
 	item_lists.append(ezbuy.get_item_list(search_str))
-	item_lists.append(fitlion.get_item_list(search_str))
+	#item_lists.append(fitlion.get_item_list(search_str))
 	return item_lists

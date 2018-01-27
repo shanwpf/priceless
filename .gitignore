@@ -1,5 +1,6 @@
 /modules/*/__pycache__
 /out
+results.json
 .idea/workspace.xml
 .idea/priceless.iml
 .idea/misc.xml

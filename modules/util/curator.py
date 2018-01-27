@@ -1,13 +1,6 @@
 ITEM_NAME_FILTER_LIST = ['buying', 'wtb', 'buy', 'looking for']
 PRICE_THRESHOLD_RATIO = 0.7
 
-# def is_bad_price(item, willing_price):
-# 	item_price_float = float(item['price'])
-# 	if item_price_float < float(willing_price):
-# 		return True
-# 	else:
-# 		return False
-
 def name_contains_keyword(item, search_str):
 	split_str = search_str.split(" ")
 	for keyword in split_str:
@@ -20,20 +13,6 @@ def name_contains_filtered_word(item):
 		if phrase in item['product_name'].lower():
 			return True
 	return False
-
-# def is_bad_name(item, search_str):
-# 	if name_contains_filtered_word(item):
-# 		return True
-# 	elif not name_contains_keyword(item, search_str):
-# 		return True
-# 	else:
-# 		return False
-
-# def is_bad_item(item):
-# 	if is_bad_price(item) or is_bad_name(item):
-# 		return True
-# 	else:
-# 		return False
 
 def clean_bad_price(item_list, willing_price):
 	item_list = list(filter(lambda item: 
@@ -58,11 +37,6 @@ def get_cleaned_list(item_list, willing_price, search_str):
 def sort_list(item_list):
 	item_list = sorted(item_list, key = lambda item: float(item['price']))
 	return item_list
-
-# def sort_all_lists(item_lists):
-# 	for item_list in item_lists:
-# 		sort_list(item_list)
-# 	return item_lists
 
 # Combines all item lists into a single item list
 def join_all_lists(item_lists):
