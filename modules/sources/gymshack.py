@@ -25,7 +25,10 @@ def create_item_list(html_doc):
 	product_box_raw = soup.find_all("div", "block-inner")
 	for element in product_box_raw:
 		item = {}
-		item['product_name'] = element.find("div", "title").text
+		if(element.find("div", "title") == None):
+			continue
+		else:
+			item['product_name'] = element.find("div", "title").text
 		item['url'] = generate_product_detail(element.find("a")['href'])
 
 		# Checks if the item is in discount, if it is, then take the lesser value
@@ -34,9 +37,13 @@ def create_item_list(html_doc):
 		else:
 			item['price'] = format_price(element.find("span", "price").find("span", "money").text)
 		item_list.append(item)
+
+	print(item_list)
 		
 	return item_list
 
 def get_item_list(search_str):
 	html_doc = requests.get(generate_url(search_str))
 	return create_item_list(html_doc)
+
+get_item_list("shaker bottle")
