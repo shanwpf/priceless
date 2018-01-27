@@ -20,7 +20,7 @@ def is_bad_item(item):
 	else:
 		return False
 
-def get_filtered_list(item_list):
+def get_cleaned_list(item_list):
 	for item in item_list:
 		if is_bad_item(item):
 			item_list.remove(item)

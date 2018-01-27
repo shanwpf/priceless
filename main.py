@@ -1,9 +1,7 @@
-from modules.sources import carousell, lazada
-from modules.util import filterItems
+from modules.util import scrape, curator
 
 print("Search: ", end = "")
 search_str = input()
 
-carousell_item_list = filterItems.get_filtered_list(carousell.get_item_list(search_str))
-lazada_item_list = lazada.get_item_list(search_str)
-print(lazada_item_list)
+item_lists = scrape.get_item_lists(search_str)
+print(curator.get_curated_item_list(item_lists))
