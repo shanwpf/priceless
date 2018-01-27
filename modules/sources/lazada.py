@@ -18,8 +18,7 @@ def create_item_list(html_doc):
 		item['price'] = card['offers']['price']
 		item['url'] = card['url']
 		item_list.append(item)
-
-print json.dumps(item_list, indent=2, sort_keys=True) # Pretty prints
+	return item_list
 
 def get_item_list(search_str):
 	html_doc = requests.get(generate_url(search_str))
