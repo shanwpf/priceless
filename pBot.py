@@ -69,6 +69,7 @@ def reply_all(updates):
             else:
                 # This is where we call Priceless's main API
                 results = "Hi {}, these are the following price comparison results for {}".format(name, text)
+                print(text)
                 list = botinterface.search(text)
                 print(list)
                 # ...

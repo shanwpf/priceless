@@ -22,7 +22,8 @@ def get_item_list(search_str):
 	headers = { "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36", \
 	'origin': 'https://shopee.sg', 'accept-encoding': 'gzip, deflate, br', 'accept-language': 'en-GB,en;q=0.9,zh;q=0.8', \
 		'x-requested-with': 'XMLHttpRequest', 'content-type': 'application/json', 'accept': 'application/json', \
-		'referer': 'https://shopee.sg/search/?keyword=something+something', 'authority': 'shopee.sg', 'x-api-source': 'pc', 'dnt': '1'}
+		'referer': 'https://shopee.sg/search/?keyword=something+something', 'authority': 'shopee.sg', 'x-api-source': 'pc', 'dnt': '1', \
+		'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'}
 	params = {"by":"pop", "order":"desc", "keyword":search_str, "newest":"0", "limit":"50" }
 	idData = requests.get(SEARCH_API_URL, headers=headers, params=params)
 	#print(idData.text)
@@ -36,6 +37,7 @@ def get_item_list(search_str):
 	# Second API Call to obtain list of search results
 	data = json.dumps(payload)
 	response = requests.post(ITEMS_API_URL, headers=headers, data=open("shopee.json","rb"))
-	return create_item_list(response.json())
+	print(response.json())
+	# return create_item_list(response.json())
 
 get_item_list("something something")

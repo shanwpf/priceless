@@ -19,9 +19,9 @@ def update():
 # 	return fileio.get_item_list_from_file()
 
 def process_input(input_str):
-	last_space = input_str.rfind(" ")
-	current_search_str = input_str[:last_space - 1]
-	current_willing_price = input_str[last_space + 1:]
+	last_space_idx = input_str.rfind(" ")
+	current_search_str = input_str[:last_space_idx].strip()
+	current_willing_price = float(input_str[last_space_idx + 1:].strip())
 
 # Starts a new search
 def search(input_str):
