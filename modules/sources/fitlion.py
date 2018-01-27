@@ -14,7 +14,8 @@ def format_price(price_str):
 
 def create_item_list(html_doc):
 	item_list = []
-
+	item_price = []
+	index = 0
 	soup = BeautifulSoup(html_doc.text, 'html.parser')
 
 	# Logic for processing the prices of the product
@@ -22,30 +23,28 @@ def create_item_list(html_doc):
 	price_box_raw = soup.find_all("div", "price-box")
 
 	for element in price_box_raw:
-		item = {}
 		
 		# If the item is on discount
 		if(element.find("span").find("span") == None and element.find("span").text == "Regular Price:"):
-			item['price'] = format_price(element.find(attrs={"class" : "special-price"}).find(attrs={"class":"price"}).text.split()[0])
+			 item_price.append(format_price(element.find(attrs={"class" : "special-price"}).find(attrs={"class":"price"}).text.split()[0]))
 			
 
 		elif(element.find("span").find("span") == None):
-			item['price'] = format_price(element.find("span").text)
+			item_price.append(format_price(element.find("span").text))
 
 		else:
-			item['price'] = format_price(element.find("span").find("span").text)
-
-		print(item['price'])
-
-		item_list.append(item)
+			item_price.append(format_price(element.find("span").find("span").text))
 
 	product_name_raw = soup.find_all("h2", "product-name")
 	for element in product_name_raw:
 
 		item = {}
 		item['product_name'] = element.find("a")['title']
+		item['price'] = item_price[index]
 		item['url'] = element.find("a")['href']
+
 		item_list.append(item)
+		index = index + 1
 
 	return item_list
 
