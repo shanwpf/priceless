@@ -14,7 +14,7 @@ A telegram bot to notify you your item of interest has a lower price than before
     * Python Telegram Bot  
     `>pip install python-telegram-bot`
 
-3. Run the `bot.py` file located in the 'priceless' folder
+3. Run the `pBot.py` file located in the 'priceless' folder
 
 ## Supported websites
 * Carousell
