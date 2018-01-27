@@ -18,8 +18,12 @@ def update():
 # 	fileio.set_update_status(False)
 # 	return fileio.get_item_list_from_file()
 
+def process_input(input_str):
+	last_space = input_str.rfind(" ")
+	current_search_str = input_str[:last_space - 1]
+	current_willing_price = input_str[last_space + 1:]
+
 # Starts a new search
-def search(search_str, willing_price):
-	current_search_str = search_str
-	current_willing_price = willing_price
+def search(input_str):
+	process_input(input_str)
 	return update()
