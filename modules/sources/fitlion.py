@@ -44,7 +44,6 @@ def create_item_list(html_doc):
 		item = {}
 		item['product_name'] = element.find("a")['title']
 		item['price'] = item_price[index]
-		print(item['price'])
 		item['url'] = element.find("a")['href']
 
 		index = index + 1
