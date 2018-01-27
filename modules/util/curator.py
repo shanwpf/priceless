@@ -1,3 +1,5 @@
+from modules.util import janitor
+
 # Sorts an item list by price
 def sort_list(item_list):
 	item_list = sorted(item_list, key = lambda item: float(item['price']))
@@ -15,11 +17,12 @@ def join_all_lists(item_lists):
 		joined_list += item_list
 	return joined_list
 
-# Returns the curated item list one item list
-def curate_item_list(item_list):
-	return item_list[:10]
+def curate_list(item_list, willing_price):
+	item_list = janitor.get_cleaned_list(item_list, willing_price)
+	item_list = sort_list(item_list)
+	return item_list
 
 # Returns a curated item list from item lists
-def get_curated_item_list(item_lists):
-	item_lists = sort_list(join_all_lists(item_lists))
-	return curate_item_list(item_lists)
+def get_curated_item_list(item_lists, willing_price):
+	item_list = curate_list(join_all_lists(item_lists), willing_price)
+	return item_list

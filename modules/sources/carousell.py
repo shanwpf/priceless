@@ -22,7 +22,7 @@ def create_item_list(html_doc):
 		item['product_name'] = card.find("h4").text
 		item['date'] = card.find("time").find("span").text
 		item['price'] = format_price(card.find("dl").find("dd").text)
-		item['desc'] = card.select_one("dl dd:nth-of-type(2)").text
+		#item['desc'] = card.select_one("dl dd:nth-of-type(2)").text
 		item['url'] = ITEM_URL_PREFIX + card.find("figcaption").find("a")['href']
 		item_list.append(item)
 	return item_list

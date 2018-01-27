@@ -23,3 +23,4 @@ def create_item_list(html_doc):
 def get_item_list(search_str):
 	html_doc = requests.get(generate_url(search_str))
 	return create_item_list(html_doc)
+	
