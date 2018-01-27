@@ -38,7 +38,7 @@ def create_item_list(html_doc):
 			item['price'] = format_price(element.find("span", "price").find("span", "money").text)
 		item_list.append(item)
 
-	print(item_list)
+	#print(item_list)
 		
 	return item_list
 
@@ -46,4 +46,4 @@ def get_item_list(search_str):
 	html_doc = requests.get(generate_url(search_str))
 	return create_item_list(html_doc)
 
-get_item_list("shaker bottle")
+# get_item_list("shaker bottle")
