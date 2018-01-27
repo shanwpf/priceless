@@ -56,21 +56,27 @@ def send_message(text, chat_id):
 def reply_all(updates):
     for update in updates["result"]:
         try:
-            name = update["message"]["from"]["first_name"]
+            userid = update["message"]["from"]["id"]
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
             update_id = update["update_id"]
 
-            if text == "/help":
-                results = "*Welcome!*\nTo begin, simply input the item you want to search, " \
-                +"followed by the price you are comfortable with.\nFor example, if you want " \
-                +"to find an <i>iPhone 6</i> and you can only pay around <i>$100</i>, input \"<b>iPhone 6 100</b>\""
+            text_words = text.split(" ")
 
-            else:
+            if text_words[0] == "/help":
+                results = "*Welcome!*\nTo begin, simply input /compare and the item you want to search, " \
+                +"followed by the price you are comfortable with.\nFor example, if you want " \
+                +"to find an <i>iPhone 6</i> and you can only pay around <i>$500</i>, input \"<b>/compare iPhone 6 500</b>\""
+
+            elif text_words[0] == "/compare":
+                text = text[9:]
                 # This is where we call Priceless's main API
-                results = "Hi {}, these are the following price comparison results for <b>'{}'</b>\n".format(name, text)
                 itemlist = botinterface.search(text)
-                print(itemlist)
+                #print(itemlist)
+                if (len(itemlist) == 0):
+                    results = "Hi <a href="tg://user?id={}">inline mention of a user</a>, there are no price comparison results for <b>'{}'</b>\n".format(userid, text)
+                else:
+                    results = "Hi <a href="tg://user?id={}">inline mention of a user</a>, these are the following price comparison results for <b>'{}'</b>\n".format(userid, text)
                 counter = 1
                 for item in itemlist:
                     results += "<b>" + str(counter) + ". "
@@ -83,9 +89,9 @@ def reply_all(updates):
                     for k in item:
                         results += k + ": " + item[k] + "\n"
                     counter += 1
-            print(results)
+            #print(results)
             send_message(results, chat)
-            logging.info(("Name: {}, Text: {}, Chat: {}, Update_ID: {}, Results: {}").format(name, text, chat, update_id, results))
+            logging.info(("UserID: {}, Text: {}, Chat: {}, Update_ID: {}, Results: {}").format(userid, text, chat, update_id, results))
         except Exception as e:
             logging.warning('Error comparing prices. ' + traceback.format_exc())
             continue
