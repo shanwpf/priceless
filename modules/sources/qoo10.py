@@ -10,7 +10,7 @@ def generate_url(search_str):
 
 #remove dollar sign for the price so that it shows in only digit format
 def format_price(price_str):
-	return price_str[1:]
+	return price_str[1:].replace(",", "")
 
 def create_item_list(html_doc):
     item_list = []
