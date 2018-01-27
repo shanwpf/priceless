@@ -5,13 +5,13 @@ A telegram bot to notify you your item of interest has a lower price than before
 * Python 3  
 
 ## User Guide:
-1. Clone the repo to your local directory
+1. Clone the repo to your local directory  
 `> git clone https://github.com/shanwpf/priceless.git `
 
 2. Install python dependencies
-    * BeautifulSoup, bs4
+    * BeautifulSoup, bs4  
     `> pip install beautifulsoup4`
-    * Python Telegram Bot
+    * Python Telegram Bot  
     `>pip install python-telegram-bot`
 
 3. Run the `bot.py` file located in the 'priceless' folder
