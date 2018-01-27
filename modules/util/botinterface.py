@@ -8,7 +8,7 @@ def is_update_available():
 
 # Returns a dict obj of the updated item_list
 def update():
-	item_lists = scraper.get_item_lists(search_str)
+	item_lists = scraper.get_item_lists(current_search_str)
 	curated_list = curator.get_curated_item_list(item_lists, willing_to_pay, search_str)
 	fileio.update_results_file(curated_list)
 	return fileio.get_item_list_from_file()
@@ -21,4 +21,3 @@ def update():
 def search(search_str):
 	current_search_str = search_str
 	return update()
-	
