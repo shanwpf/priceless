@@ -24,10 +24,13 @@ def create_item_list(html_doc):
 
 	for element in price_box_raw:
 		
+		
 		# If the item is on discount
 		if(element.find("span").find("span") == None and element.find("span").text == "Regular Price:"):
 			 item_price.append(format_price(element.find(attrs={"class" : "special-price"}).find(attrs={"class":"price"}).text.split()[0]))
-			
+		
+		elif(element.find("span").text == "From:"):
+			item_price.append(format_price(element.find(attrs={"class" : "price-from"}).find(attrs={"class" : "price"}).text))
 
 		elif(element.find("span").find("span") == None):
 			item_price.append(format_price(element.find("span").text))
@@ -41,13 +44,17 @@ def create_item_list(html_doc):
 		item = {}
 		item['product_name'] = element.find("a")['title']
 		item['price'] = item_price[index]
+		print(item['price'])
 		item['url'] = element.find("a")['href']
 
-		item_list.append(item)
 		index = index + 1
+		item_list.append(item)
+
 
 	return item_list
 
 def get_item_list(search_str):
 	html_doc = requests.get(generate_url(search_str))
 	return create_item_list(html_doc)
+
+get_item_list("iphone x")
