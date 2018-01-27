@@ -1,6 +1,7 @@
 from modules.util import fileio, scraper, curator
 
 current_search_str = ""
+current_willing_price = 0
 
 # Returns a boolean indicating if updated data is available
 def is_update_available():
@@ -9,7 +10,7 @@ def is_update_available():
 # Returns a dict obj of the updated item_list
 def update():
 	item_lists = scraper.get_item_lists(current_search_str)
-	curated_list = curator.get_curated_item_list(item_lists, willing_to_pay, search_str)
+	curated_list = curator.get_curated_item_list(item_lists, current_willing_price, search_str)
 	fileio.update_results_file(curated_list)
 	return fileio.get_item_list_from_file()
 
@@ -18,6 +19,7 @@ def update():
 # 	return fileio.get_item_list_from_file()
 
 # Starts a new search
-def search(search_str):
+def search(search_str, willing_price):
 	current_search_str = search_str
+	current_willing_price = willing_price
 	return update()
