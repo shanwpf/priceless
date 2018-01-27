@@ -12,7 +12,6 @@ def generate_url(search_str):
 def format_price(price_str):
 	return price_str[2:]
 
-	return price_str
 def create_item_list(html_doc):
 	item_list = []
 
@@ -24,16 +23,25 @@ def create_item_list(html_doc):
 
 	for element in price_box_raw:
 		item = {}
-		if(element.find("span").find("span") == None):
+		
+		# If the item is on discount
+		if(element.find("span").find("span") == None and element.find("span").text == "Regular Price:"):
 			item['price'] = format_price(element.find(attrs={"class" : "special-price"}).find(attrs={"class":"price"}).text.split()[0])
+			
+
+		elif(element.find("span").find("span") == None):
+			item['price'] = format_price(element.find("span").text)
+
 		else:
 			item['price'] = format_price(element.find("span").find("span").text)
+
+		print(item['price'])
 
 		item_list.append(item)
 
 	product_name_raw = soup.find_all("h2", "product-name")
-
 	for element in product_name_raw:
+
 		item = {}
 		item['product_name'] = element.find("a")['title']
 		item['url'] = element.find("a")['href']
