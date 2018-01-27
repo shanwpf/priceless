@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 
-URL_PREFIX = "https://carousell.com/search/products/?query="
+SEARCH_URL_PREFIX = "https://carousell.com/search/products/?query="
+ITEM_URL_PREFIX = "https://carousell.com"
 REPLACE_SPACE_STRING = "%20"
 
 def generate_url(search_str):
-	return URL_PREFIX + search_str.replace(" ", REPLACE_SPACE_STRING)
+	return SEARCH_URL_PREFIX + search_str.replace(" ", REPLACE_SPACE_STRING)
 
 # Carousell uses commas to separate thousands, eg. S$1,200.50
 # This function returns a string that is convertible to float
@@ -22,6 +23,7 @@ def create_item_list(html_doc):
 		item['date'] = card.find("time").find("span").text
 		item['price'] = format_price(card.find("dl").find("dd").text)
 		item['desc'] = card.select_one("dl dd:nth-of-type(2)").text
+		item['url'] = ITEM_URL_PREFIX + card.find("figcaption").find("a")['href']
 		item_list.append(item)
 	return item_list
 
