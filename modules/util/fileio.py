@@ -19,7 +19,7 @@ def get_item_list_from_file():
 		return existing_data
 
 def overwrite_file(item_list):
-	with open(FILE_PATH, 'w') as outfile:
+	with open(FILE_PATH, 'w+') as outfile:
 		json.dump(item_list, outfile)
 
 def has_update():
