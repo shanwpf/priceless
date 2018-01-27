@@ -57,6 +57,7 @@ def reply_all(updates):
     for update in updates["result"]:
         try:
             userid = update["message"]["from"]["id"]
+            username = update["message"]["from"]["username"]
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
             update_id = update["update_id"]
@@ -74,14 +75,14 @@ def reply_all(updates):
                 itemlist = botinterface.search(text)
                 #print(itemlist)
                 if (len(itemlist) == 0):
-                    results = "Hi <a href="tg://user?id={}">inline mention of a user</a>, there are no price comparison results for <b>'{}'</b>\n".format(userid, text)
+                    results = "Sorry <a href=\"tg://user?id={}\">{}</a>, there are no price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
                 else:
-                    results = "Hi <a href="tg://user?id={}">inline mention of a user</a>, these are the following price comparison results for <b>'{}'</b>\n".format(userid, text)
+                    results = "Hi <a href=\"tg://user?id={}\">{}</a>, these are the following price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
                 counter = 1
                 for item in itemlist:
                     results += "<b>" + str(counter) + ". "
                     results += item["product_name"] + "</b>\n"
-                    results += "Price: " + item["price"] + "\n"
+                    results += "Price: " + str(item["price"]) + "\n"
                     results += "URL: " + item["url"] + "\n"
                     item.pop("product_name")
                     item.pop("price")
@@ -90,8 +91,10 @@ def reply_all(updates):
                         results += k + ": " + item[k] + "\n"
                     counter += 1
             #print(results)
+            if len(results) > 4095:
+                results = "Sorry <a href=\"tg://user?id={}\">{}</a>, the price comparison results for <b>'{}'</b> is too long to be sent.\n".format(userid, username, text)
             send_message(results, chat)
-            logging.info(("UserID: {}, Text: {}, Chat: {}, Update_ID: {}, Results: {}").format(userid, text, chat, update_id, results))
+            logging.info(("UserID: {}, Username: {}, Text: {}, Chat: {}, Update_ID: {}, Results: {}").format(userid, username, text, chat, update_id, results))
         except Exception as e:
             logging.warning('Error comparing prices. ' + traceback.format_exc())
             continue
