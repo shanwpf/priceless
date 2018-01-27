@@ -7,6 +7,12 @@ REPLACE_SPACE_STRING = "+"
 def generate_url(search_str):
 	return URL_PREFIX + search_str.replace(" ", REPLACE_SPACE_STRING)
 
+# Fitlion puts S$ infront of their pricing
+# This function removes the characters and turns it into a float
+def format_price(price_str):
+	return price_str[2:]
+
+	return price_str
 def create_item_list(html_doc):
 	item_list = []
 
@@ -19,9 +25,9 @@ def create_item_list(html_doc):
 	for element in price_box_raw:
 		item = {}
 		if(element.find("span").find("span") == None):
-			item['price'] = element.find(attrs={"class" : "special-price"}).find(attrs={"class":"price"}).text.split()[0]
+			item['price'] = format_price(element.find(attrs={"class" : "special-price"}).find(attrs={"class":"price"}).text.split()[0])
 		else:
-			item['price'] = element.find("span").find("span").text
+			item['price'] = format_price(element.find("span").find("span").text)
 
 		item_list.append(item)
 
