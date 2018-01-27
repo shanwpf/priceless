@@ -1,5 +1,4 @@
 from modules.sources import carousell, lazada, qoo10, fitlion
-from modules.util import janitor
 
 def get_item_lists(search_str):
 	item_lists = []
