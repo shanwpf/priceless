@@ -50,7 +50,7 @@ def get_last_chat_id_and_text(updates):
 
 def send_message(text, chat_id):
     text = urllib.parse.quote_plus(text)
-    url = URL + "sendMessage?parse_mode=Markdown&text={}&chat_id={}".format(text, chat_id)
+    url = URL + "sendMessage?parse_mode=HTML&text={}&chat_id={}".format(text, chat_id)
     get_url(url)
 
 def reply_all(updates):
@@ -64,16 +64,27 @@ def reply_all(updates):
             if text == "/help":
                 results = "*Welcome!*\nTo begin, simply input the item you want to search, " \
                 +"followed by the price you are comfortable with.\nFor example, if you want " \
-                +"to find an _iPhone 6_ and you can only pay around _$100_, input \"*iPhone 6 100*\""
+                +"to find an <i>iPhone 6</i> and you can only pay around <i>$100</i>, input \"<b>iPhone 6 100</b>\""
 
             else:
                 # This is where we call Priceless's main API
-                results = "Hi {}, these are the following price comparison results for {}".format(name, text)
-                list = botinterface.search(text)
-                print(list)
-                # ...
-            
-            send_message(results, chat,)
+                results = "Hi {}, these are the following price comparison results for <b>'{}'</b>\n".format(name, text)
+                itemlist = botinterface.search(text)
+                print(itemlist)
+                counter = 1
+                for item in itemlist:
+                    results += "<b>" + str(counter) + ". "
+                    results += item["product_name"] + "</b>\n"
+                    results += "Price: " + item["price"] + "\n"
+                    results += "URL: " + item["url"] + "\n"
+                    item.pop("product_name")
+                    item.pop("price")
+                    item.pop("url")
+                    for k in item:
+                        results += k + ": " + item[k] + "\n"
+                    counter += 1
+            print(results)
+            send_message(results, chat)
             logging.info(("Name: {}, Text: {}, Chat: {}, Update_ID: {}, Results: {}").format(name, text, chat, update_id, results))
         except Exception as e:
             logging.warning('Error comparing prices. ' + traceback.format_exc())
