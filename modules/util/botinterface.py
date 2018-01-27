@@ -1,16 +1,13 @@
 from modules.util import fileio, scraper, curator
 
-current_search_str = ""
-current_willing_price = 0
-
 # Returns a boolean indicating if updated data is available
 def is_update_available():
 	return fileio.has_update()
 
 # Returns a dict obj of the updated item_list
-def update():
-	item_lists = scraper.get_item_lists(current_search_str)
-	curated_list = curator.get_curated_item_list(item_lists, current_willing_price, current_search_str)
+def update(search_str, willing_price):
+	item_lists = scraper.get_item_lists(search_str)
+	curated_list = curator.get_curated_item_list(item_lists, willing_price, search_str)
 	fileio.update_results_file(curated_list)
 	return fileio.get_item_list_from_file()
 
@@ -22,8 +19,9 @@ def process_input(input_str):
 	last_space_idx = input_str.rfind(" ")
 	current_search_str = input_str[:last_space_idx].strip()
 	current_willing_price = float(input_str[last_space_idx + 1:].strip())
+	return {'search_str': current_search_str, 'willing_price': current_willing_price}
 
 # Starts a new search
 def search(input_str):
-	process_input(input_str)
-	return update()
+	args = process_input(input_str)
+	return update(args['search_str'], args['willing_price'])

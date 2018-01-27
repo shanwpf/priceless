@@ -14,8 +14,6 @@ def file_differs(item_list):
 	if len(item_list) != len(file_item_list):
 		return True
 	pairs = zip(get_item_list_from_file(), item_list)
-	print(get_item_list_from_file())
-	print(item_list)
 	return any(x != y for x, y in pairs)
 
 def get_item_list_from_file():
