@@ -83,7 +83,7 @@ def reply_all(updates):
                     for item in itemlist:
                         results += "<b>" + str(counter) + ". "
                         results += item["product_name"] + "</b>\n"
-                        results += "Price: " + str(item["price"]) + "\n"
+                        results += "Price: $" + str(item["price"]) + "\n"
                         results += "URL: " + item["url"] + "\n"
                         item.pop("product_name")
                         item.pop("price")
