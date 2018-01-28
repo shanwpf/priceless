@@ -1,5 +1,7 @@
 # Priceless - A Telegram Bot
-A telegram bot to search the lowest prices for you!
+A telegram bot to search the lowest prices for you!  
+
+![screenshot](screenshot_1.png)
 
 ## Prerequisite
 * Python 3  
