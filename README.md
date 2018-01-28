@@ -29,12 +29,14 @@ This command gives the user a list of the cheapest deals for <item_name> at a ma
 * Fitlion
 * Gymshack
 * Qoo10
-* Ezbuy  
+* Ezbuy 
+
 `We'll add support to more websites in the future! Stay posted :)`
 
 ## Contributors
-Developed at Hack and Roll 2018
-`Shannon Wong` :cat:
-`Wayne Koo` :bird:
-`Md Azhar` :tiger:
+Developed at Hack and Roll 2018  
+
+`Shannon Wong` :cat:  
+`Wayne Koo` :bird:  
+`Md Azhar` :tiger:  
 `Lingjie` :pig:
