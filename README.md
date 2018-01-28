@@ -1,7 +1,7 @@
 # Priceless - A Telegram Bot
 A telegram bot to search the lowest prices for you!
 
-## Prerequisites
+## Prerequisite
 * Python 3  
 
 ## User Guide:
@@ -29,7 +29,8 @@ This command gives the user a list of the cheapest deals for <item_name> at a ma
 * Fitlion
 * Gymshack
 * Qoo10
-* Ezbuy
+* Ezbuy  
+`We'll add support to more websites in the future! Stay posted :)`
 
 ## Contributors
 Developed at Hack and Roll 2018
