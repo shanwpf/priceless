@@ -18,9 +18,7 @@ def update(search_str, willing_price):
 def process_input(input_str):
 	last_space_idx = input_str.rfind(" ")
 	current_search_str = input_str[:last_space_idx].strip()
-	current_willing_price = input_str[last_space_idx + 1:].strip()
-	if not current_willing_price.isnumeric():
-		raise ValueError("Price is not numeric")
+	current_willing_price = float(input_str[last_space_idx + 1:].strip())
 	return {'search_str': current_search_str, 'willing_price': current_willing_price}
 
 # Starts a new search
