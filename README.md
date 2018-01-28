@@ -17,8 +17,8 @@ A telegram bot to search the lowest prices for you!
 3. Run the `pBot.py` file located in the 'priceless' folder
 
 ## List of Commands
-1. Find item prices  
-`>/find <item_name> <maximum_price>`
+1. Find item prices.  
+`>/find <item_name> <maximum_price>`  
 This command gives the user a list of the cheapest deals for <item_name> at a maximum price you're willing to pay for it with <maximum_price>  
 
 `Stay posted for more commands in the future! We are in the process of developing it :)`
