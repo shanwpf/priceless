@@ -79,18 +79,18 @@ def reply_all(updates):
                         results = "Sorry <a href=\"tg://user?id={}\">{}</a>, there are no price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
                     else:
                         results = "Hi <a href=\"tg://user?id={}\">{}</a>, these are the following price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
-                    counter = 1
-                    for item in itemlist:
-                        results += "<b>" + str(counter) + ". "
-                        results += item["product_name"] + "</b>\n"
-                        results += "Price: $" + str(item["price"]) + "\n"
-                        results += "URL: " + item["url"] + "\n"
-                        item.pop("product_name")
-                        item.pop("price")
-                        item.pop("url")
-                        for k in item:
-                            results += k + ": " + item[k] + "\n"
-                        counter += 1
+                        counter = 1
+                        for item in itemlist:
+                            results += "<b>" + str(counter) + ". "
+                            results += item["product_name"] + "</b>\n"
+                            results += "Price: $" + str(item["price"]) + "\n"
+                            results += "URL: " + item["url"] + "\n"
+                            item.pop("product_name")
+                            item.pop("price")
+                            item.pop("url")
+                            for k in item:
+                                results += k + ": " + item[k] + "\n"
+                            counter += 1
                 except ValueError as error:
                     results = "Sorry, <a href=\"tg://user?id={}\">{}</a>, you have entered an invalid price.".format(userid, username) \
                     + "\n\n<b>Example</b>\nIf you're looking for an <i>iPhone 6</i> and you are willing to pay <i>$500</i>, " \
