@@ -5,7 +5,7 @@
 import json, logging
 import requests, urllib
 import time, traceback
-from modules.util import botinterface
+import priceless
 
 # Logging Setup
 logging.basicConfig(format='%(asctime)s-%(name)s:%(levelname)s - %(message)s',
@@ -66,31 +66,35 @@ def reply_all(updates):
 
             if text_words[0] == "/help":
                 results = "*Welcome!*\nTo begin, simply input /compare and the item you want to search, " \
-                +"followed by the price you are comfortable with.\nFor example, if you want " \
-                +"to find an <i>iPhone 6</i> and you can only pay around <i>$500</i>, input \"<b>/compare iPhone 6 500</b>\""
+                +"followed by the price you are comfortable with.\nFor example, if you're " \
+                +"looking for an <i>iPhone 6</i> and you're willing to pay <i>$500</i>, type \"<b>/find iPhone 6 500</b>\""
 
-            elif text_words[0] == "/compare":
-                text = text[9:]
-                # This is where we call Priceless's main API
-                itemlist = botinterface.search(text)
-                #print(itemlist)
-                if (len(itemlist) == 0):
-                    results = "Sorry <a href=\"tg://user?id={}\">{}</a>, there are no price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
-                else:
-                    results = "Hi <a href=\"tg://user?id={}\">{}</a>, these are the following price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
-                counter = 1
-                for item in itemlist:
-                    results += "<b>" + str(counter) + ". "
-                    results += item["product_name"] + "</b>\n"
-                    results += "Price: " + str(item["price"]) + "\n"
-                    results += "URL: " + item["url"] + "\n"
-                    item.pop("product_name")
-                    item.pop("price")
-                    item.pop("url")
-                    for k in item:
-                        results += k + ": " + item[k] + "\n"
-                    counter += 1
-            #print(results)
+            elif text_words[0] == "/find":
+                try:
+                    text = text[6:]
+                    # This is where we call Priceless's main API
+                    itemlist = priceless.search(text)
+                    #print(itemlist)
+                    if (len(itemlist) == 0):
+                        results = "Sorry <a href=\"tg://user?id={}\">{}</a>, there are no price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
+                    else:
+                        results = "Hi <a href=\"tg://user?id={}\">{}</a>, these are the following price comparison results for <b>'{}'</b>:\n".format(userid, username, text)
+                    counter = 1
+                    for item in itemlist:
+                        results += "<b>" + str(counter) + ". "
+                        results += item["product_name"] + "</b>\n"
+                        results += "Price: " + str(item["price"]) + "\n"
+                        results += "URL: " + item["url"] + "\n"
+                        item.pop("product_name")
+                        item.pop("price")
+                        item.pop("url")
+                        for k in item:
+                            results += k + ": " + item[k] + "\n"
+                        counter += 1
+                except ValueError as error:
+                    results = "Sorry, <a href=\"tg://user?id={}\">{}</a>, you have entered an invalid price.".format(userid, username) \
+                    + "\n\n<b>Example</b>\nIf you're looking for an <i>iPhone 6</i> and you are willing to pay <i>$500</i>, " \
+                    + "type \"<b>/find iPhone 6 500</b>\""
             if len(results) > 4095:
                 results = "Sorry <a href=\"tg://user?id={}\">{}</a>, the price comparison results for <b>'{}'</b> is too long to be sent.\n".format(userid, username, text)
             send_message(results, chat)

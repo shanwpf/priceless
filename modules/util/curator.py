@@ -1,5 +1,7 @@
 ITEM_NAME_FILTER_LIST = ['buying', 'wtb', 'buy', 'looking for']
-PRICE_THRESHOLD_RATIO = 0.7
+
+def get_lower_bound(willing_price):
+	return pow(float(willing_price), 7/8)
 
 def name_contains_keyword(item, search_str):
 	split_str = search_str.split(" ")
@@ -17,7 +19,7 @@ def name_contains_filtered_word(item):
 def clean_bad_price(item_list, willing_price):
 	item_list = list(filter(lambda item: 
 		float(item['price']) <= float(willing_price) and
-		float(item['price']) >= float(willing_price) * PRICE_THRESHOLD_RATIO,
+		float(item['price']) >= get_lower_bound(willing_price),
 		item_list))
 	return item_list
 
@@ -48,7 +50,15 @@ def join_all_lists(item_lists):
 def curate_list(item_list, willing_price, search_str):
 	item_list = get_cleaned_list(item_list, willing_price, search_str)
 	item_list = sort_list(item_list)
+	item_list = prune_list(item_list)
 	return item_list
+
+def prune_list(item_list):
+	print(item_list)
+	if len(item_list) > 15:
+		return item_list[-15:]
+	else:
+		return item_list
 
 # Returns a curated item list from item lists
 def get_curated_item_list(item_lists, willing_price, search_str):
