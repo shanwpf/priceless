@@ -1,6 +1,8 @@
 # Priceless - A Telegram Bot
 A telegram bot to search the lowest prices for you!  
 
+![](https://i.imgur.com/ILI5AiI.jpg)
+
 ![](https://i.imgur.com/qYruuBP.png)
 
 ## Prerequisite
