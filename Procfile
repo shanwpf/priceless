@@ -1,1 +1,1 @@
-worker: python pBot.py --log-file -
+worker: python pBot.py --log-file=-
